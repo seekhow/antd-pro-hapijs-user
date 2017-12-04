@@ -15,7 +15,6 @@ export default {
         payload: true,
       });
       const response = yield call(queryFakeList, payload);
-      console.log(response);
       yield put({
         type: 'appendList',
         payload: Array.isArray(response) ? response : [],
@@ -31,7 +30,7 @@ export default {
     appendList(state, action) {
       return {
         ...state,
-        list: state.list.concat(action.payload),
+        list: action.payload,
       };
     },
     changeLoading(state, action) {
