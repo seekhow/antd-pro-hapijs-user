@@ -360,7 +360,7 @@ class BasicLayout extends React.PureComponent {
                     )
                   )
                 }
-                <Redirect exact from="/" to="/dashboard/analysis" />
+                <Redirect exact from="/user-board" to="/user-board/user-list" />
                 <Route component={NotFound} />
               </Switch>
             </div>
