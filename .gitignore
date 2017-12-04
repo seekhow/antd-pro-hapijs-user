@@ -1,0 +1,24 @@
+# See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
+
+# front
+# dependencies
+front/node_modules
+# roadhog-api-doc ignore
+front/src/utils/request-temp.js
+front/_roadhog-api-doc
+
+# production
+front/dist
+
+# misc
+front/.DS_Store
+front/npm-debug.log*
+
+front/coverage
+
+# server  
+server/npm-debug.log
+server/node_modules
+
+server/.vscode
+server/typings
