@@ -33,6 +33,7 @@
     "hapi": "^16.4.3",
     "hapi-auth-jwt2": "^7.3.0",
     "joi": "^13.0.2",
+    "jsonwebtoken": "^8.1.0",
     "mongoose": "^4.9.2"
   },
   "devDependencies": {

@@ -1,6 +1,7 @@
 const hello = require('./handlers/home').hello;
 const notFound = require('./handlers/home').notFound;
 const user = require('./handlers/user').user;
+const login = require('./handlers/login').login;
 
 exports.register = (plugin, options, next) => {
 
@@ -18,6 +19,8 @@ exports.register = (plugin, options, next) => {
     { method: 'POST', path: '/user', config: user.create },
     { method: 'PUT', path: '/user/{id}', config: user.update },
     { method: 'DELETE', path: '/user/{id}', config: user.destroy },
+    // login route
+    { method: 'POST', path: '/login', config: login.login },
   ]);
 
   next();
