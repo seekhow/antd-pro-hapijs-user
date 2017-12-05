@@ -1,4 +1,6 @@
 import { stringify } from 'qs';
+import axios from 'axios';
+import { message } from 'antd';
 import request from '../utils/request';
 
 export async function queryProjectNotice() {
@@ -61,9 +63,15 @@ export async function queryFakeList(params) {
 }
 
 export async function fakeAccountLogin(params) {
-  return request('/api/login/account', {
-    method: 'POST',
-    body: params,
+  return axios.post('http://127.0.0.1:8000/api/login', {
+    name: params.userName,
+    password: params.password,
+  }).then((res) => {
+    if (res.status === 200) {
+      return res.data;
+    } else {
+      message.error('登录错误,请检查用户名和密码');
+    }
   });
 }
 
