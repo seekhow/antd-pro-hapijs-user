@@ -56,18 +56,19 @@ export default class BasicList extends PureComponent {
       total: 50,
     };
 
-    const ListContent = ({ data: { owner, createdAt, percent, status } }) => (
+    const ListContent = ({ data: { role, group, update } }) => (
       <div className={styles.listContent}>
         <div>
-          <span>Owner</span>
-          <p>{owner}</p>
+          <span>Group</span>
+          <p>{group}</p>
         </div>
         <div>
-          <span>开始时间</span>
-          <p>{moment(createdAt).format('YYYY-MM-DD hh:mm')}</p>
+          <span>身份权限</span>
+          <p>{role === 3 ? '超级管理员' : (role === 2 ? '管理员' : '普通用户')}</p>
         </div>
         <div>
-          <Progress percent={percent} status={status} strokeWidth={6} />
+          <span>上次登录时间</span>
+          <p>{moment(update).format('YYYY-MM-DD hh:mm')}</p>
         </div>
       </div>
     );
@@ -127,12 +128,11 @@ export default class BasicList extends PureComponent {
               dataSource={list}
               renderItem={item => (
                 <List.Item
-                  actions={[<a>编辑</a>, <MoreBtn />]}
+                  actions={[<MoreBtn id={item._id} />]}
                 >
                   <List.Item.Meta
-                    avatar={<Avatar src={item.logo} shape="square" size="large" />}
-                    title={<a href={item.href}>{item.title}</a>}
-                    description={item.subDescription}
+                    title={<a href="">{item.name}</a>}
+                    description={item.description}
                   />
                   <ListContent data={item} />
                 </List.Item>

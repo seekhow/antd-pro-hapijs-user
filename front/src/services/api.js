@@ -58,12 +58,18 @@ export async function queryAdvancedProfile() {
   return request('/api/profile/advanced');
 }
 
-export async function queryFakeList(params) {
-  return request(`/api/fake_list?${stringify(params)}`);
+export async function queryFakeList() {
+  const token = sessionStorage.getItem('token');
+  return axios.get('http://127.0.0.1:3000/api/users', {
+    headers: { Authorization: token },
+  })
+    .then((res) => {
+      return res.data;
+    });
 }
 
 export async function fakeAccountLogin(params) {
-  return axios.post('http://127.0.0.1:8000/api/login', {
+  return axios.post('http://127.0.0.1:3000/api/login', {
     name: params.userName,
     password: params.password,
   }).then((res) => {
