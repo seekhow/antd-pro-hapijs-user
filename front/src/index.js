@@ -1,11 +1,10 @@
-import 'babel-polyfill';
 import dva from 'dva';
-import 'moment/locale/zh-cn';
 import browserHistory from 'history/createBrowserHistory';
+import 'moment/locale/zh-cn';
+import './polyfill';
 import './g2';
-import './rollbar';
+import './raven';
 import './index.less';
-import router from './router';
 
 // 1. Initialize
 const app = dva({
@@ -19,7 +18,7 @@ const app = dva({
 app.model(require('./models/global'));
 
 // 4. Router
-app.router(router);
+app.router(require('./router'));
 
 // 5. Start
 app.start('#root');

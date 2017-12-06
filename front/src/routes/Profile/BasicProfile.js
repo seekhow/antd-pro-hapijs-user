@@ -99,13 +99,13 @@ export default class BasicProfile extends Component {
       title: '单价',
       dataIndex: 'price',
       key: 'price',
-      align: 'right',
+      className: 'col-money',
       render: renderContent,
     }, {
       title: '数量（件）',
       dataIndex: 'num',
       key: 'num',
-      align: 'right',
+      className: 'col-money',
       render: (text, row, index) => {
         if (index < basicGoods.length) {
           return text;
@@ -116,7 +116,7 @@ export default class BasicProfile extends Component {
       title: '金额',
       dataIndex: 'amount',
       key: 'amount',
-      align: 'right',
+      className: 'col-money',
       render: (text, row, index) => {
         if (index < basicGoods.length) {
           return text;

@@ -1,3 +1,4 @@
+/* eslint-disable */
 import dynamic from 'dva/dynamic';
 
 // wrapper of dynamic
@@ -37,7 +38,6 @@ export const getNavData = app => [
       //     },
       //   ],
       // },
-      // 新增的从这里开始
       {
         name: '用户管理',
         icon: 'user',
@@ -50,7 +50,6 @@ export const getNavData = app => [
           },
         ],
       },
-      // 新增的从这里结束
       // {
       //   name: '表单页',
       //   path: 'form',
@@ -191,7 +190,7 @@ export const getNavData = app => [
           {
             name: '登录',
             path: 'login',
-            component: dynamicWrapper(app, ['login'], () => import('../routes/User/Login')),
+            component: dynamicWrapper(app, ['login', 'user'], () => import('../routes/User/Login')),
           },
           {
             name: '注册',
@@ -207,14 +206,14 @@ export const getNavData = app => [
       },
     ],
   },
-  // {
-  //   component: dynamicWrapper(app, [], () => import('../layouts/BlankLayout')),
-  //   layout: 'BlankLayout',
-  //   children: {
-  //     name: '使用文档',
-  //     path: 'http://pro.ant.design/docs/getting-started',
-  //     target: '_blank',
-  //     icon: 'book',
-  //   },
-  // },
+  {
+    component: dynamicWrapper(app, [], () => import('../layouts/BlankLayout')),
+    layout: 'BlankLayout',
+    children: {
+      name: '使用文档',
+      path: 'http://pro.ant.design/docs/getting-started',
+      target: '_blank',
+      icon: 'book',
+    },
+  },
 ];

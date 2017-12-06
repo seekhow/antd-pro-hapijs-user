@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Layout, Menu, Icon, Avatar, Dropdown, Tag, message, Spin } from 'antd';
 import DocumentTitle from 'react-document-title';
 import { connect } from 'dva';
-import { Link, Route, Redirect, Switch } from 'dva/router';
+import { Link, Route, Redirect, Switch, routerRedux } from 'dva/router';
 import moment from 'moment';
 import groupBy from 'lodash/groupBy';
 import { ContainerQuery } from 'react-container-query';
@@ -14,7 +14,6 @@ import NoticeIcon from '../components/NoticeIcon';
 import GlobalFooter from '../components/GlobalFooter';
 import NotFound from '../routes/Exception/404';
 import styles from './BasicLayout.less';
-import logo from '../assets/logo.svg';
 
 const { Header, Sider, Content } = Layout;
 const { SubMenu } = Menu;
@@ -48,7 +47,12 @@ class BasicLayout extends React.PureComponent {
   constructor(props) {
     super(props);
     // 把一级 Layout 的 children 作为菜单项
-    this.menus = props.navData.reduce((arr, current) => arr.concat(current.children), []);
+    this.menus = props.navData.reduce((arr, current) => {
+      if (current.layout !== 'BasicLayout') {
+        return arr;
+      }
+      return arr.concat(current.children);
+    }, []);
     this.state = {
       openKeys: this.getDefaultCollapsedSubMenus(props),
     };
@@ -71,8 +75,16 @@ class BasicLayout extends React.PureComponent {
     });
   }
   componentWillUnmount() {
+    if (!sessionStorage.getItem('token')) {
+      this.props.dispatch(routerRedux.push('/'));
+    }
     this.triggerResizeEvent.cancel();
   }
+  onLogout = () => {
+    this.props.dispatch({
+      type: 'login/logout',
+    });
+  };
   onCollapse = (collapsed) => {
     this.props.dispatch({
       type: 'global/changeLayoutCollapsed',
@@ -159,7 +171,7 @@ class BasicLayout extends React.PureComponent {
               >
                 {icon}<span>{item.name}</span>
               </Link>
-            )
+              )
           }
         </Menu.Item>
       );
@@ -248,7 +260,7 @@ class BasicLayout extends React.PureComponent {
         <Menu.Item disabled><Icon type="user" />个人中心</Menu.Item>
         <Menu.Item disabled><Icon type="setting" />设置</Menu.Item>
         <Menu.Divider />
-        <Menu.Item key="logout"><Icon type="logout" />退出登录</Menu.Item>
+        <Menu.Item key="logout"><Icon type="logout" onClick={this.onLogout} />退出登录</Menu.Item>
       </Menu>
     );
     const noticeData = this.getNoticeData();
@@ -270,8 +282,8 @@ class BasicLayout extends React.PureComponent {
           className={styles.sider}
         >
           <div className={styles.logo}>
-            <Link to="/">
-              <img src={logo} alt="logo" />
+            <Link to="/dashboard">
+              <img src="https://gw.alipayobjects.com/zos/rmsportal/iwWyPinUoseUxIAeElSx.svg" alt="logo" />
               <h1>Ant Design Pro</h1>
             </Link>
           </div>
@@ -307,7 +319,7 @@ class BasicLayout extends React.PureComponent {
               />
               <NoticeIcon
                 className={styles.action}
-                count={currentUser.notifyCount}
+                count="2" // {currentUser.notifyCount}
                 onItemClick={(item, tabProps) => {
                   console.log(item, tabProps); // eslint-disable-line
                 }}
@@ -338,7 +350,7 @@ class BasicLayout extends React.PureComponent {
               {currentUser.name ? (
                 <Dropdown overlay={menu}>
                   <span className={`${styles.action} ${styles.account}`}>
-                    <Avatar size="small" className={styles.avatar} src={currentUser.avatar} />
+                    <Avatar size="small" className={styles.avatar} src="" />
                     {currentUser.name}
                   </span>
                 </Dropdown>
@@ -346,24 +358,22 @@ class BasicLayout extends React.PureComponent {
             </div>
           </Header>
           <Content style={{ margin: '24px 24px 0', height: '100%' }}>
-            <div style={{ minHeight: 'calc(100vh - 260px)' }}>
-              <Switch>
-                {
-                  getRouteData('BasicLayout').map(item =>
-                    (
-                      <Route
-                        exact={item.exact}
-                        key={item.path}
-                        path={item.path}
-                        component={item.component}
-                      />
-                    )
+            <Switch>
+              {
+                getRouteData('BasicLayout').map(item =>
+                  (
+                    <Route
+                      exact={item.exact}
+                      key={item.path}
+                      path={item.path}
+                      component={item.component}
+                    />
                   )
-                }
-                <Redirect exact from="/user-board" to="/user-board/user-list" />
-                <Route component={NotFound} />
-              </Switch>
-            </div>
+                )
+              }
+              <Redirect exact from="/dashboard" to="dashboard/user-list" />
+              <Route component={NotFound} />
+            </Switch>
             <GlobalFooter
               links={[{
                 title: 'Pro 首页',

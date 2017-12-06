@@ -19,7 +19,7 @@ export default class Login extends Component {
 
   componentWillReceiveProps(nextProps) {
     if (nextProps.login.status === 'ok') {
-      this.props.dispatch(routerRedux.push('/user-board'));
+      this.props.dispatch(routerRedux.push('/user-board/user-list'));
     }
   }
 
@@ -109,7 +109,7 @@ export default class Login extends Component {
                     size="large"
                     prefix={<Icon type="lock" className={styles.prefixIcon} />}
                     type="password"
-                    placeholder="888888"
+                    placeholder="admin"
                   />
                 )}
               </FormItem>

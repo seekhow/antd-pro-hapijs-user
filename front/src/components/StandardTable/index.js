@@ -59,8 +59,11 @@ class StandardTable extends PureComponent {
         title: '服务调用次数',
         dataIndex: 'callNo',
         sorter: true,
-        align: 'right',
-        render: val => `${val} 万`,
+        render: val => (
+          <div style={{ textAlign: 'center' }}>
+            {val} 万
+          </div>
+        ),
       },
       {
         title: '状态',

@@ -3,6 +3,8 @@ import axios from 'axios';
 import { message } from 'antd';
 import request from '../utils/request';
 
+// const token = sessionStorage.getItem('token');
+
 export async function queryProjectNotice() {
   return request('/api/project/notice');
 }
@@ -61,6 +63,16 @@ export async function queryAdvancedProfile() {
 export async function queryFakeList() {
   const token = sessionStorage.getItem('token');
   return axios.get('http://127.0.0.1:3000/api/users', {
+    headers: { Authorization: token },
+  })
+    .then((res) => {
+      return res.data;
+    });
+}
+
+export async function queryByRole(params) {
+  const token = sessionStorage.getItem('token');
+  return axios.get(`http://127.0.0.1:3000/api/users?all=false&queryRole=${params}`, {
     headers: { Authorization: token },
   })
     .then((res) => {

@@ -25,8 +25,8 @@ export default {
         payload: false,
       });
     },
-    *fetchCurrent(_, { call, put }) {
-      const response = yield call(queryCurrent);
+    *fetchCurrent(_, { put }) {
+      const response = JSON.parse(sessionStorage.getItem('currentUser'));
       yield put({
         type: 'saveCurrentUser',
         payload: response,
