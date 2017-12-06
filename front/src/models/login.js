@@ -21,10 +21,6 @@ export default {
           type: 'changeLoginStatus',
           payload: { status: 'ok', type: 'account' },
         });
-        // yield put({
-        //   type: 'user/saveCurrentUser',
-        //   payload: response.doc,
-        // });
         const jwttoken = jwtdecode(response.token);
 
         sessionStorage.setItem('token', response.token);
