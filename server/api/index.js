@@ -15,7 +15,7 @@ exports.register = (plugin, options, next) => {
     { method: 'GET', path: '/{path*}', config: notFound },
     // user route 
     { method: 'GET', path: '/users', config: user.list },
-    { method: 'GET', path: '/user/{id}', config: user.get },
+    { method: 'GET', path: '/user', config: user.get },
     { method: 'POST', path: '/user', config: user.create },
     { method: 'PUT', path: '/user/{id}', config: user.update },
     { method: 'DELETE', path: '/user/{id}', config: user.destroy },

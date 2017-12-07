@@ -59,20 +59,21 @@ exports.user = {
     validate: {
       payload: {
         name: Joi.string(),
+        passwd: Joi.string(),
         group: Joi.string(),
         role: Joi.number(),
         description: Joi.string(),
       },
     },
     handler: (request, reply) => {
-      const { payload: { name, role, group, description } } = request;
+      const { payload: { name, passwd, role, group, description } } = request;
       const token = request.headers.authorization;
       const userRole = praseToken(token).role;
       if (userRole <= role) {
         reply('permission denied,token error!');
         return null;
       }
-      const list = new UsersModel({ name, role, group, description });
+      const list = new UsersModel({ name, passwd, role, group, description });
       list.save()
         .then((doc) => {
           reply(doc).code(201);
@@ -93,7 +94,7 @@ exports.user = {
     },
     handler: (request, reply) => {
       const { id } = request.params;
-      const { name, role, group, description } = request.payload;
+      const { name, passwd, role, group, description } = request.payload;
       const token = request.headers.authorization;
       const userRole = praseToken(token).role;
       if (role && userRole < role) {
@@ -101,7 +102,7 @@ exports.user = {
         return null;
       }
       UsersModel.where({ _id: id })
-        .update({ name, group, description, role })
+        .update({ name, passwd, group, description, role })
         .then((doc) => {
           reply(doc).code(200);
         })

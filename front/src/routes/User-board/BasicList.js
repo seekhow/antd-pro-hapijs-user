@@ -96,6 +96,9 @@ export default class BasicList extends PureComponent {
     if (!value) {
       this.props.dispatch({
         type: 'userList/fetch',
+        payload: {
+          role: sessionStorage.getItem('role'),
+        },
       });
       return null;
     }
@@ -111,7 +114,7 @@ export default class BasicList extends PureComponent {
         this.props.dispatch({
           type: 'userList/fetch',
           payload: {
-            role: this.props.role,
+            role: sessionStorage.getItem('role'),
           },
         });
         break;

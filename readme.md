@@ -10,7 +10,18 @@ restful前后端分离架构
 
 
 ## 截图  
-![](http://otjjfdfdp.bkt.clouddn.com/17-12-6/9061644.jpg)
+用户列表  
+![](http://otjjfdfdp.bkt.clouddn.com/17-12-6/9061644.jpg)  
+编辑用户  
+![](http://otjjfdfdp.bkt.clouddn.com/17-12-7/82116476.jpg)  
+增加用户  
+![](http://otjjfdfdp.bkt.clouddn.com/17-12-7/83507218.jpg)  
+![](http://otjjfdfdp.bkt.clouddn.com/17-12-7/39035910.jpg)  
+查询用户  
+![](http://otjjfdfdp.bkt.clouddn.com/17-12-7/6937687.jpg)   
+删除用户  
+![](http://otjjfdfdp.bkt.clouddn.com/17-12-7/52736135.jpg)  
+
 
 
 ## 登录和验证    
